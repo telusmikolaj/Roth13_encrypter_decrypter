@@ -45,10 +45,11 @@ class Encrypter:
     def show_list(self):
 
         if len(self.encrypted_texts) == 0:
-            print()
-        print('Encrypted texts list: \n')
-        for line in self.encrypted_texts:
-            print(f'{line}')
+            print('List is empty \n')
+        else:
+            print('Encrypted texts list: ')
+            for index, line in enumerate(self.encrypted_texts, start=1):
+                print(f'{index}. {line}')
 
     def save_to_file(self, encrypted_text):
 
@@ -61,9 +62,12 @@ class Encrypter:
 
     def display_encrypted_texts_from_file(self):
         self.get_encrypted_texts_from_file()
-        print('Encrypted Texts: \n')
-        for line in self.encrypted_texts_form_file:
-            print(line)
+        if len(self.encrypted_texts_form_file) == 0:
+            print('File is empty \n')
+        else:
+            print('Encrypted Texts: ')
+            for line in self.encrypted_texts_form_file:
+                print(line)
 
         print('\n')
 
@@ -72,12 +76,21 @@ class Encrypter:
             for index, line in enumerate(f):
                 self.encrypted_texts_form_file.append(line.strip())
 
-
     def is_text_in_file(self, encrypted_text):
         with open('encrypted_texts.txt') as f:
             if encrypted_text in f.read():
                 return True
 
+    def decrypt_text_from_list(self, text_id):
+        for index, line in enumerate(self.encrypted_texts, start=1):
+            if index == text_id:
+                self.encrypt_or_decrypt(line,'decrypt')
+                valid_id = True
+            else:
+                print('Invalid id')
+
+    def get_number_of_text_in_list(self):
+        return len(self.encrypted_texts)
 
 class Menu:
     def __init__(self):
@@ -117,7 +130,6 @@ class Menu:
             self.display_decrypted_texts(display_option)
             break
 
-
     def start_encrypter(self, user):
         if user == 1:
             text_to_encrypt = str(input('Enter text to be encrypted: \n'))
@@ -131,6 +143,13 @@ class Menu:
         if decrypt_option == 1:
             text_to_decrypt = str(input('Enter text to be decrypted: \n'))
             self.encrypter.encrypt_or_decrypt(text_to_decrypt, 'decrypt')
+        if decrypt_option == 2:
+            if self.encrypter.get_number_of_text_in_list() == 0:
+                print('List is empty ')
+            else:
+                self.encrypter.show_list()
+                text_id = int(input('Enter id of text from list to decrypt: \n'))
+                self.encrypter.decrypt_text_from_list(text_id)
 
     def display_decrypted_texts(self, display_option):
 
@@ -138,6 +157,7 @@ class Menu:
             self.encrypter.show_list()
         else:
             self.encrypter.display_encrypted_texts_from_file()
+
 
 menu = Menu()
 
