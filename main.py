@@ -1,8 +1,8 @@
-
 class Encrypter:
     def __init__(self):
         self.key = 13
         self.encrypted_texts = []
+        self.encrypted_texts_form_file = []
 
     def encrypt_or_decrypt(self, text, mode):
         ciphertext = ''
@@ -17,13 +17,12 @@ class Encrypter:
         elif mode == 'decrypt':
             print('Decrypted ' + ciphertext)
 
-
-    def show_save_file_menu(self,text, encrypted_text):
+    def show_save_file_menu(self, text, encrypted_text):
         user_input = ' '
         while user_input != 1 or user_input != 2 or user_input != 3:
             user_input = int(input(f'1. Save encrypted text to list \n'
-                                  f'2. Save encrypted text to file \n'
-                                  f'3. Only show encrypted text \n '))
+                                   f'2. Save encrypted text to file \n'
+                                   f'3. Only show encrypted text \n '))
             if user_input == 1:
                 self.save_to_list(encrypted_text)
                 break
@@ -43,9 +42,13 @@ class Encrypter:
 
         self.show_list()
 
-
     def show_list(self):
-        print(self.encrypted_texts)
+
+        if len(self.encrypted_texts) == 0:
+            print()
+        print('Encrypted texts list: \n')
+        for line in self.encrypted_texts:
+            print(f'{line}')
 
     def save_to_file(self, encrypted_text):
 
@@ -56,10 +59,25 @@ class Encrypter:
                 f.write(encrypted_text)
                 f.write('\n')
 
+    def display_encrypted_texts_from_file(self):
+        self.get_encrypted_texts_from_file()
+        print('Encrypted Texts: \n')
+        for line in self.encrypted_texts_form_file:
+            print(line)
+
+        print('\n')
+
+    def get_encrypted_texts_from_file(self):
+        with open('encrypted_texts.txt') as f:
+            for index, line in enumerate(f):
+                self.encrypted_texts_form_file.append(line.strip())
+
+
     def is_text_in_file(self, encrypted_text):
         with open('encrypted_texts.txt') as f:
             if encrypted_text in f.read():
                 return True
+
 
 class Menu:
     def __init__(self):
@@ -73,7 +91,7 @@ class Menu:
                 f'Menu \n'
                 f'1. Encrpyt text and save to file or list \n'
                 f'2. Decrypt text \n'
-                f'5. Show encrypted texts \n'
+                f'3. Display encrypted texts \n'
                 f'4. Exit \n'))
 
             self.start_encrypter(self.userInput)
@@ -87,23 +105,47 @@ class Menu:
                 f'3. Decrpyt text from file \n '))
 
             self.start_decrypter(decrypt_option)
+            break
+
+    def show_display_menu(self):
+        display_option = 0
+        while display_option != 1 or display_option != 2:
+            display_option = int(input(
+                f'1. Display texts in list \n'
+                f'2. Display texts in file \n'))
+
+            self.display_decrypted_texts(display_option)
+            break
+
 
     def start_encrypter(self, user):
         if user == 1:
             text_to_encrypt = str(input('Enter text to be encrypted: \n'))
-            self.encrypter.encrypt_or_decrypt(text_to_encrypt,'encrypt')
+            self.encrypter.encrypt_or_decrypt(text_to_encrypt, 'encrypt')
         if user == 2:
             self.show_decrypt_menu()
+        if user == 3:
+            self.show_display_menu()
 
     def start_decrypter(self, decrypt_option):
         if decrypt_option == 1:
             text_to_decrypt = str(input('Enter text to be decrypted: \n'))
-            self.encrypter.encrypt_or_decrypt(text_to_decrypt,'decrypt')
+            self.encrypter.encrypt_or_decrypt(text_to_decrypt, 'decrypt')
 
+    def display_decrypted_texts(self, display_option):
 
-
-
-
+        if display_option == 1:
+            self.encrypter.show_list()
+        else:
+            self.encrypter.display_encrypted_texts_from_file()
 
 menu = Menu()
-menu.show_menu()
+
+# list = []
+# with open('encrypted_texts.txt') as f:
+#     for index, line in enumerate(f):
+#         print(line)
+#         list.append(line.strip())
+#
+# for index, line in enumerate(list):
+#     print(index, line)
