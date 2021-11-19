@@ -12,16 +12,41 @@ class Encrypter:
             else:
                 ciphertext += chr((ord(c) + self.key - 97) % 26 + 97)
 
+        self.show_save_file_menu(ciphertext)
+
     def show_save_file_menu(self, encrypted_text):
-        userInput = str(input(f'1. Save encrypted text to list \n'
-                              f'2. Save encrypted text to file \n'
-                              f'3. Only show encrypted text \n '))
+        user_input = ' '
+        while user_input != 1 or user_input != 2 or user_input != 3:
+            user_input = int(input(f'1. Save encrypted text to list \n'
+                                  f'2. Save encrypted text to file \n'
+                                  f'3. Only show encrypted text \n '))
+            if user_input == 1:
+                self.save_to_list(encrypted_text)
+                break
+            elif user_input == 2:
+                self.save_to_file(encrypted_text)
+                break
+            else:
+                print(f'Encrpyted text: {encrypted_text} \n')
 
     def save_to_list(self, encrypted_text):
-        self.encrypted_texts.append(encrypted_text)
+
+        if encrypted_text in self.encrypted_texts:
+            print('This text is already on list \n')
+        else:
+            self.encrypted_texts.append(encrypted_text)
+
+        self.show_list()
+
 
     def show_list(self):
         print(self.encrypted_texts)
+
+    def save_to_file(self, encrypted_text):
+        with open('encrypted_texts.txt', 'a') as f:
+            print ('Hallo')
+            f.write(encrypted_text)
+            f.write('\n')
 
 class Menu:
     def __init__(self):
@@ -33,9 +58,9 @@ class Menu:
         while self.userInput:
             self.userInput = int(input(
                 f'Menu \n'
-                f'1. Encrpyt text and save to list \n'
+                f'1. Encrpyt text \n'
                 f'2. Decrypt text \n'
-                f'3. List Decrypted texts'
+                f'3. Show encrypted texts \n'
                 f'4. Exit \n'))
 
             self.start_encrypter(self.userInput)
