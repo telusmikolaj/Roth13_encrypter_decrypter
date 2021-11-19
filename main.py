@@ -12,6 +12,12 @@ class Encrypter:
             else:
                 ciphertext += chr((ord(c) + self.key - 97) % 26 + 97)
 
+    def save_to_list(self, encrypted_text):
+        self.encrypted_texts.append(encrypted_text)
+
+    def show_list(self):
+        print(self.encrypted_texts)
+
 class Menu:
     def __init__(self):
         self.userInput = ' '
