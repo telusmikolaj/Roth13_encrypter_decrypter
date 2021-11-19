@@ -28,6 +28,7 @@ class Encrypter:
                 break
             else:
                 print(f'Encrpyted text: {encrypted_text} \n')
+                break
 
     def save_to_list(self, encrypted_text):
 
@@ -43,10 +44,19 @@ class Encrypter:
         print(self.encrypted_texts)
 
     def save_to_file(self, encrypted_text):
-        with open('encrypted_texts.txt', 'a') as f:
-            print ('Hallo')
-            f.write(encrypted_text)
-            f.write('\n')
+
+        if self.is_text_in_file(encrypted_text):
+            print('Text is already in file')
+        else:
+            with open('encrypted_texts.txt', 'a') as f:
+                print ('Hallo')
+                f.write(encrypted_text)
+                f.write('\n')
+
+    def is_text_in_file(self, encrypted_text):
+        with open('encrypted_texts.txt') as f:
+            if encrypted_text in f.read():
+                return True
 
 class Menu:
     def __init__(self):
