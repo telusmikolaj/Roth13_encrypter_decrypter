@@ -19,18 +19,21 @@ class Encrypter:
 
     def show_save_file_menu(self, text, encrypted_text):
         user_input = ' '
-        while user_input != 1 or user_input != 2 or user_input != 3:
+        while user_input != '1' or user_input != '2' or user_input != '3':
             user_input = input(f'1. Save encrypted text to list \n'
-                                   f'2. Save encrypted text to file \n'
-                                   f'3. Only show encrypted text \n ')
-            if user_input == 1:
+                               f'2. Save encrypted text to file \n'
+                               f'3. Only show encrypted text \n '
+                               f'4. Return')
+            if user_input == '1':
                 self.save_to_list(encrypted_text)
                 break
-            elif user_input == 2:
+            elif user_input == '2':
                 self.save_to_file(encrypted_text)
                 break
-            elif user_input == 3:
+            elif user_input == '3':
                 print(f'{text}: {encrypted_text} \n')
+                break
+            elif user_input == '4':
                 break
 
     def save_to_list(self, encrypted_text):
@@ -111,76 +114,84 @@ class Encrypter:
 
 class Menu:
     def __init__(self):
-        self.userInput = ' '
+        self.user_input = ' '
         self.encrypter = Encrypter()
         self.show_main_menu()
 
     def show_main_menu(self):
-        while self.userInput:
-            self.userInput = int(input(
+        while self.user_input != '1' or self.user_input != '2' or self.user_input != '3' or self.user_input != '4':
+            self.user_input = input(
                 f'Menu \n'
                 f'1. Encrpyt text and save to file or list \n'
                 f'2. Decrypt text \n'
                 f'3. Display encrypted texts \n'
-                f'4. Exit \n'))
+                f'4. Exit \n')
 
-            self.start_encrypter(self.userInput)
+            if self.user_input == '4':
+                break
+
+            self.start_encrypter(self.user_input)
 
     def show_decrypt_menu(self):
         decrypt_option = 0
-        while decrypt_option != 1 or decrypt_option != 2 or decrypt_option != 3:
-            decrypt_option = int(input(
+        while decrypt_option != '1' or decrypt_option != '2' or decrypt_option != '3':
+            decrypt_option = input(
                 f'1. Decrypt given text \n'
                 f'2. Decrypt text form list \n'
-                f'3. Decrpyt text from file \n '))
+                f'3. Decrpyt text from file \n '
+                f'4. Return \n')
 
             self.start_decrypter(decrypt_option)
             break
 
     def show_display_menu(self):
-        display_option = 0
-        while display_option != 1 or display_option != 2:
-            display_option = int(input(
+        display_option = ' '
+        while display_option != '1' or display_option != '2':
+            display_option = input(
                 f'1. Display texts in list \n'
-                f'2. Display texts in file \n'))
+                f'2. Display texts in file \n'
+                f'3. Return \n')
 
             self.display_decrypted_texts(display_option)
             break
 
     def start_encrypter(self, user):
-        if user == 1:
+        if user == '1':
             text_to_encrypt = str(input('Enter text to be encrypted: \n'))
             self.encrypter.encrypt_or_decrypt(text_to_encrypt, 'encrypt')
-        if user == 2:
+        elif user == '2':
             self.show_decrypt_menu()
-        if user == 3:
+        elif user == '3':
             self.show_display_menu()
 
     def start_decrypter(self, decrypt_option):
-        if decrypt_option == 1:
+        if decrypt_option == '1':
             text_to_decrypt = str(input('Enter text to be decrypted: \n'))
             self.encrypter.encrypt_or_decrypt(text_to_decrypt, 'decrypt')
-        if decrypt_option == 2:
+        if decrypt_option == '2':
             if self.encrypter.get_number_of_text_in_list() == 0:
                 print('List is empty ')
             else:
                 self.encrypter.show_list()
                 text_id = int(input('Enter id of text from list to decrypt: \n'))
                 self.encrypter.decrypt_text_from_list_or_file(text_id, 'list')
-        if decrypt_option == 3:
+        if decrypt_option == '3':
             if self.encrypter.encrypted_texts_form_file == 0:
                 print('File is empty')
             else:
                 self.encrypter.display_encrypted_texts_from_file()
                 text_id = int(input('Enter id of text from file to decrypt: \n'))
                 self.encrypter.decrypt_text_from_list_or_file(text_id, 'file')
+        if decrypt_option == '4':
+            self.show_main_menu()
 
     def display_decrypted_texts(self, display_option):
-        if display_option == 1:
+        if display_option == '1':
             self.encrypter.show_list()
-        else:
+        elif display_option == '2':
             self.encrypter.display_encrypted_texts_from_file()
+        elif display_option == '3':
+            self.show_main_menu()
 
 
 menu = Menu()
-
