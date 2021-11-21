@@ -104,6 +104,24 @@ class Encrypter:
             if is_not_valid_id:
                 print('Invalid id')
 
+    def delete_text_from_list(self):
+        if self.encrypted_texts:
+            is_not_valid_id = True
+            self.show_list()
+            text_id = input('Enter id of text to delete: \n')
+            for index, line in enumerate(self.encrypted_texts, start=1):
+                if index == int(text_id):
+                    print('das')
+                    del self.encrypted_texts[int(text_id)-1]
+                    is_not_valid_id = False
+
+            if is_not_valid_id:
+                print('Invalid id')
+        else:
+            print('List is empty')
+
+
+
     def get_number_of_text_in_list(self):
         return len(self.encrypted_texts)
 
@@ -125,9 +143,10 @@ class Menu:
                 f'1. Encrpyt text and save to file or list \n'
                 f'2. Decrypt text \n'
                 f'3. Display encrypted texts \n'
-                f'4. Exit \n')
+                f'4. Delete encrypted texts form list or file'
+                f'5. Exit \n')
 
-            if self.user_input == '4':
+            if self.user_input == '5':
                 break
 
             self.start_encrypter(self.user_input)
@@ -155,6 +174,17 @@ class Menu:
             self.display_decrypted_texts(display_option)
             break
 
+    def show_delete_menu(self):
+        delete_option = ' '
+        while delete_option != '1' or delete_option != '2' or delete_option == '3':
+            delete_option = input(
+                f'1. Delete text form list \n'
+                f'2. Delete text from file \n'
+                f'3. Return \n')
+
+            self.delete_encrypted_texts(delete_option)
+            break
+
     def start_encrypter(self, user):
         if user == '1':
             text_to_encrypt = str(input('Enter text to be encrypted: \n'))
@@ -163,6 +193,8 @@ class Menu:
             self.show_decrypt_menu()
         elif user == '3':
             self.show_display_menu()
+        elif user == '4':
+            self.show_delete_menu()
 
     def start_decrypter(self, decrypt_option):
         if decrypt_option == '1':
@@ -191,6 +223,14 @@ class Menu:
         elif display_option == '2':
             self.encrypter.display_encrypted_texts_from_file()
         elif display_option == '3':
+            self.show_main_menu()
+
+    def delete_encrypted_texts(self, delete_option):
+        if delete_option == '1':
+            self.encrypter.delete_text_from_list()
+        elif delete_option == '2':
+            print('2')
+        elif delete_option == '3':
             self.show_main_menu()
 
 
