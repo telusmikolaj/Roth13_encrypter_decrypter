@@ -104,6 +104,21 @@ class Encrypter:
             if is_not_valid_id:
                 print('Invalid id')
 
+
+    def delete_text_from_file(self):
+        self.get_encrypted_texts_from_file()
+        self.display_encrypted_texts_from_file()
+        text_id = input('Enter id of text to delete: \n')
+        if self.encrypted_texts_form_file:
+            with open('encrypted_texts.txt', 'w') as fp:
+                for index, line in enumerate(self.encrypted_texts_form_file, start=1):
+                    if index != int(text_id):
+                        fp.write(line)
+                        fp.write('\n')
+
+        else:
+            print('File is empty')
+
     def delete_text_from_list(self):
         if self.encrypted_texts:
             is_not_valid_id = True
@@ -111,7 +126,6 @@ class Encrypter:
             text_id = input('Enter id of text to delete: \n')
             for index, line in enumerate(self.encrypted_texts, start=1):
                 if index == int(text_id):
-                    print('das')
                     del self.encrypted_texts[int(text_id)-1]
                     is_not_valid_id = False
 
@@ -143,7 +157,7 @@ class Menu:
                 f'1. Encrpyt text and save to file or list \n'
                 f'2. Decrypt text \n'
                 f'3. Display encrypted texts \n'
-                f'4. Delete encrypted texts form list or file'
+                f'4. Delete encrypted texts form list or file \n'
                 f'5. Exit \n')
 
             if self.user_input == '5':
@@ -229,7 +243,7 @@ class Menu:
         if delete_option == '1':
             self.encrypter.delete_text_from_list()
         elif delete_option == '2':
-            print('2')
+            self.encrypter.delete_text_from_file()
         elif delete_option == '3':
             self.show_main_menu()
 
