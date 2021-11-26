@@ -12,7 +12,9 @@ class MainMenu:
         self.decrypter = Decrypter()
 
     def invoke_main_loop(self) -> NoReturn:
-        avalible_choices: Dict[str, str] = {"1": self.encrypter.get_text_to_encrypt_from_user, "2": self.decrypter.show_decrypt_menu}
+        avalible_choices: Dict[str, str] = {
+            "1": self.encrypter.encrypt_or_decrypt,
+            "2": self.invoke_decrypter_menu_loop}
         while 1:
             print(self.show_main_menu())
             user_input_ = input("> ")
@@ -33,7 +35,49 @@ class MainMenu:
             """
         )
 
+    def invoke_decrypter_menu_loop(self) -> NoReturn:
+        avalible_decrypter_options: Dict[str, str] = {
+            '1': self.decrypter.decrypt_text,
+            '2': self.encrypter.decrypt_text_from_list_or_file
 
+        }
+        while 1:
+            print(self.show_decrypt_menu())
+            user_input_ = input("> ")
+            if user_input_ in avalible_decrypter_options:
+                avalible_decrypter_options[user_input_]()
+            else:
+                print("Wrong choice!")
+
+    def show_decrypt_menu(self) -> str:
+
+        return cleandoc(
+            """
+                1. Decrypt given text
+                2. Decrypt text form list
+                3. Decrpyt text from file
+                4. Return
+                    """
+        )
+    def invoke_save_file_loop(self) -> NoReturn:
+        avalible_save_options: Dict[str, str] = {
+            '1': self.encrypter.save_to_list
+        }
+        while 1:
+            print(self.show_save_menu())
+            user_input_ = input("> ")
+            if user_input_ in avalible_decrypter_options:
+                avalible_save_options[user_input_]()
+            else:
+                print("Wrong choice!")
+
+    def show_save_menu(self) -> str:
+        return cleandoc(
+            """
+            1. Save encrypted text to list
+            2. Save encrypted text to file
+            """
+        )
 
     def show_display_menu(self):
         display_option = " "
@@ -56,7 +100,7 @@ class MainMenu:
             break
 
     def start_encrypter(self, user):
-        elif user == "3":
+        if user == "3":
             self.show_display_menu()
         elif user == "4":
             self.show_delete_menu()
@@ -80,4 +124,5 @@ class MainMenu:
             self.show_main_menu()
 
 
-menu = Menu()
+if __name__ == "__main__":
+    MainMenu().invoke_main_loop()
