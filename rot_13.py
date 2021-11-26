@@ -12,18 +12,23 @@ class Encrypter:
         self.encrypted_texts = []
         self.encrypted_texts_form_file = []
 
-    def encrypt_or_decrypt(self, encrypted_text='', mode: str = "encrypt") -> Union[str, NoReturn]:
-        text_to_encrypt = get_text_from_user("Enter text: ")
+    def encrypt_or_decrypt(self, text_to_encrypt:str = '', encrypted_text: str = '', mode: str = "encrypt",) -> Union[str, NoReturn]:
         for c in text_to_encrypt:
             if c.isupper():
                 encrypted_text += chr((ord(c) + self.key - 65) % 26 + 65)
             else:
                 encrypted_text += chr((ord(c) + self.key - 97) % 26 + 97)
-        print(mode)
-        if mode == "decrypt":
-            return f"Decrypted: {encrypted_text}"
 
-    def save_to_list(self, encrypted_text):
+        return encrypted_text
+
+    def encrypt_without_saving(self)-> NoReturn:
+        text_to_encrypt = get_text_from_user('Enter text to encrypt')
+        encrypted_text = self.encrypt_or_decrypt(text_to_encrypt)
+        print(encrypted_text)
+
+    def save_to_list(self):
+        text_to_encrypt = get_text_from_user("Enter text and save to list: ")
+        encrypted_text = self.encrypt_or_decrypt(text_to_encrypt)
         if encrypted_text in self.encrypted_texts:
             print("This text is already on list \n")
         else:
@@ -38,8 +43,9 @@ class Encrypter:
             for index, line in enumerate(self.encrypted_texts, start=1):
                 print(f"{index}. {line}")
 
-    def save_to_file(self, encrypted_text):
-
+    def save_to_file(self):
+        text_to_encrypt = get_text_from_user("Enter text and save to file: ")
+        encrypted_text = self.encrypt_or_decrypt(text_to_encrypt)
         if self.is_text_in_file(encrypted_text):
             print("Text is already in file")
         else:
@@ -68,25 +74,6 @@ class Encrypter:
         with open("encrypted_texts.txt") as f:
             if encrypted_text in f.read():
                 return True
-
-    def decrypt_text_from_list_or_file(self, text_id, mode):
-        is_not_valid_id = True
-        if mode == "list":
-            for index, line in enumerate(self.encrypted_texts, start=1):
-                if index == text_id:
-                    self.encrypt_or_decrypt(line, "decrypt")
-                    is_not_valid_id = False
-            if is_not_valid_id:
-                print("Invalid id")
-        elif mode == "file":
-            self.get_encrypted_texts_from_file()
-            for index, line in enumerate(self.encrypted_texts_form_file, start=1):
-                if index == text_id:
-                    self.encrypt_or_decrypt(line, "decrypt")
-                    is_not_valid_id = False
-
-            if is_not_valid_id:
-                print("Invalid id")
 
     def delete_text_from_file(self):
         self.get_encrypted_texts_from_file()
@@ -129,6 +116,25 @@ class Decrypter(Encrypter):
 
     def decrypt_text(self):
         super().encrypt_or_decrypt(mode='decrypt')
+
+    def decrypt_text_from_list_or_file(self, text_id, mode):
+        is_not_valid_id = True
+        if mode == "list":
+            for index, line in enumerate(self.encrypted_texts, start=1):
+                if index == text_id:
+                    self.encrypt_or_decrypt(line, "decrypt")
+                    is_not_valid_id = False
+            if is_not_valid_id:
+                print("Invalid id")
+        elif mode == "file":
+            self.get_encrypted_texts_from_file()
+            for index, line in enumerate(self.encrypted_texts_form_file, start=1):
+                if index == text_id:
+                    self.encrypt_or_decrypt(line, "decrypt")
+                    is_not_valid_id = False
+
+            if is_not_valid_id:
+                print("Invalid id")
 
     def start_decrypter(self, decrypt_option):
         if decrypt_option == "1":

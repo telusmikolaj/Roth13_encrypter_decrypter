@@ -13,13 +13,15 @@ class MainMenu:
 
     def invoke_main_loop(self) -> NoReturn:
         avalible_choices: Dict[str, str] = {
-            "1": self.encrypter.encrypt_or_decrypt,
+            "1": self.invoke_encrypter_menu_loop,
             "2": self.invoke_decrypter_menu_loop}
         while 1:
             print(self.show_main_menu())
             user_input_ = input("> ")
             if user_input_ in avalible_choices:
                 avalible_choices[user_input_]()
+            elif user_input_ == '5':
+                break
             else:
                 print("Wrong choice!")
 
@@ -27,18 +29,46 @@ class MainMenu:
         return cleandoc(
             """
             Menu
-            1. Encrypt text and save to file or list
-            2. Decrypt text
+            1. Encrypt text 
+            2. Decrypt text 
             3. Display encrypted texts
             4. Delete encrypted texts form list or file
             5. Exit
             """
         )
 
+    def invoke_encrypter_menu_loop(self) -> NoReturn:
+        avalible_encrypter_options: Dict[str, str] = {
+            '1': self.encrypter.encrypt_without_saving,
+            '2': self.encrypter.save_to_list,
+            '3': self.encrypter.save_to_file,
+
+        }
+        while 1:
+            print(self.show_encrypter_menu())
+            user_input_ = input("> ")
+            if user_input_ in avalible_encrypter_options:
+                avalible_encrypter_options[user_input_]()
+            elif user_input_ == '4':
+                break
+            else:
+                print("Wrong choice!")
+
+    def show_encrypter_menu(self) -> str:
+
+        return cleandoc(
+            """
+                1. Only print encrypted text
+                2. Save encrypted text to list
+                3. Save encrypted text to file
+                4. Retrun
+             """
+        )
+
     def invoke_decrypter_menu_loop(self) -> NoReturn:
         avalible_decrypter_options: Dict[str, str] = {
             '1': self.decrypter.decrypt_text,
-            '2': self.encrypter.decrypt_text_from_list_or_file
+            '2': self.decrypter.decrypt_text_from_list_or_file
 
         }
         while 1:
@@ -46,6 +76,8 @@ class MainMenu:
             user_input_ = input("> ")
             if user_input_ in avalible_decrypter_options:
                 avalible_decrypter_options[user_input_]()
+            elif user_input_ == '4':
+                break
             else:
                 print("Wrong choice!")
 
@@ -58,25 +90,6 @@ class MainMenu:
                 3. Decrpyt text from file
                 4. Return
                     """
-        )
-    def invoke_save_file_loop(self) -> NoReturn:
-        avalible_save_options: Dict[str, str] = {
-            '1': self.encrypter.save_to_list
-        }
-        while 1:
-            print(self.show_save_menu())
-            user_input_ = input("> ")
-            if user_input_ in avalible_decrypter_options:
-                avalible_save_options[user_input_]()
-            else:
-                print("Wrong choice!")
-
-    def show_save_menu(self) -> str:
-        return cleandoc(
-            """
-            1. Save encrypted text to list
-            2. Save encrypted text to file
-            """
         )
 
     def show_display_menu(self):
