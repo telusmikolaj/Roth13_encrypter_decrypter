@@ -14,7 +14,9 @@ class MainMenu:
     def invoke_main_loop(self) -> NoReturn:
         avalible_choices: Dict[str, str] = {
             "1": self.invoke_encrypter_menu_loop,
-            "2": self.invoke_decrypter_menu_loop}
+            "2": self.invoke_decrypter_menu_loop,
+            "3": self.invoke_display_menu_loop,
+            "4": self.invoke_delete_menu_loop}
         while 1:
             print(self.show_main_menu())
             user_input_ = input("> ")
@@ -67,9 +69,9 @@ class MainMenu:
 
     def invoke_decrypter_menu_loop(self) -> NoReturn:
         avalible_decrypter_options: Dict[str, str] = {
-            '1': self.decrypter.decrypt_text,
-            '2': self.decrypter.decrypt_text_from_list_or_file
-
+            '1': self.decrypter.decrypt_text_from_user,
+            '2': self.decrypter.decrypt_text_from_list,
+            '3': self.decrypter.decrypt_text_from_file,
         }
         while 1:
             print(self.show_decrypt_menu())
@@ -92,50 +94,56 @@ class MainMenu:
                     """
         )
 
-    def show_display_menu(self):
-        display_option = " "
-        while display_option != "1" or display_option != "2":
-            display_option = input(
-                f"1. Display texts in list \n" f"2. Display texts in file \n" f"3. Return \n"
-            )
 
-            self.display_decrypted_texts(display_option)
-            break
+    def invoke_display_menu_loop(self) -> NoReturn:
+        avalible_display_options: Dict[str, str] = {
+            '1': self.encrypter.show_encrypted_texts_from_list,
+            '2': self.encrypter.show_encrypted_texts_from_file
+        }
+        while 1:
+            print(self.show_display_menu())
+            user_input_ = input("> ")
+            if user_input_ in avalible_display_options:
+                avalible_display_options[user_input_]()
+            elif user_input_ == '3':
+                break
+            else:
+                print("Wrong choice!")
 
-    def show_delete_menu(self):
-        delete_option = " "
-        while delete_option != "1" or delete_option != "2" or delete_option == "3":
-            delete_option = input(
-                f"1. Delete text form list \n" f"2. Delete text from file \n" f"3. Return \n"
-            )
+    def show_display_menu(self) -> str:
 
-            self.delete_encrypted_texts(delete_option)
-            break
+        return cleandoc(
+            """
+                1. Display texts in list
+                2. Display texts in file
+                3. Return
+            """
+        )
 
-    def start_encrypter(self, user):
-        if user == "3":
-            self.show_display_menu()
-        elif user == "4":
-            self.show_delete_menu()
+    def invoke_delete_menu_loop(self) -> NoReturn:
+        avalible_delete_options: Dict[str, str] = {
+            '1': self.encrypter.delete_text_from_list,
+            '2': self.encrypter.delete_text_from_file
+        }
+        while 1:
+            print(self.show_delete_menu())
+            user_input_ = input("> ")
+            if user_input_ in avalible_delete_options:
+                avalible_delete_options[user_input_]()
+            elif user_input_ == '3':
+                break
+            else:
+                print("Wrong choice!")
 
+    def show_delete_menu(self) -> str:
 
-
-    def display_decrypted_texts(self, display_option):
-        if display_option == "1":
-            self.encrypter.show_list()
-        elif display_option == "2":
-            self.encrypter.display_encrypted_texts_from_file()
-        elif display_option == "3":
-            self.show_main_menu()
-
-    def delete_encrypted_texts(self, delete_option):
-        if delete_option == "1":
-            self.encrypter.delete_text_from_list()
-        elif delete_option == "2":
-            self.encrypter.delete_text_from_file()
-        elif delete_option == "3":
-            self.show_main_menu()
-
+        return cleandoc(
+            """
+                1. Delete text from list
+                2. Delete text from file
+                3. Return
+            """
+        )
 
 if __name__ == "__main__":
     MainMenu().invoke_main_loop()
