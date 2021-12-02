@@ -90,8 +90,8 @@ class Encrypter:
                 file.write(encrypted_text)
                 file.write("\n")
 
-    @classmethod
-    def is_text_in_file(cls, encrypted_text) -> bool:
+    @staticmethod
+    def is_text_in_file(encrypted_text) -> bool:
         """
         Checks if the file contains text
         """
