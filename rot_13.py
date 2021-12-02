@@ -1,5 +1,5 @@
 """PSL"""
-from typing import NoReturn
+from typing import NoReturn, Optional
 
 # Own
 from untils import get_text_from_user
@@ -29,7 +29,7 @@ class Encrypter:
     def encrypt_or_decrypt(
             self,
             text_to_encrypt_or_decrypt: str = "",
-            encrypted_or_decrypted_text: str = "",
+            encrypted_or_decrypted_text: Optional[str] = "",
     ) -> str:
         """
         Return encrypted/decrypted text
@@ -176,11 +176,12 @@ class Encrypter:
         return len(self.encrypted_texts_form_file) <= 0
 
 
-class Decrypter(Encrypter):
+class Decrypter:
     """
         A class to represent a decrypter that decrypts text encrypted with rot13.
-
     """
+    def __init__(self):
+        self.encrypter = Encrypter()
 
     def decrypt_text_from_user(self) -> NoReturn:
         """
@@ -188,7 +189,7 @@ class Decrypter(Encrypter):
 
         """
         text_to_decrypt = get_text_from_user("Enter text to decrypt: ")
-        decrypted_text = self.encrypt_or_decrypt(text_to_decrypt)
+        decrypted_text = self.encrypter.encrypt_or_decrypt(text_to_decrypt)
         return print(f"Decrypted - {decrypted_text} ")
 
     def decrypt_text_from_list(self) -> NoReturn:
@@ -196,13 +197,13 @@ class Decrypter(Encrypter):
         Decrpyt text from the list using id given form user
 
         """
-        if not self.is_list_empty():
-            self.show_encrypted_texts_from_list()
+        if not self.encrypter.is_list_empty():
+            self.encrypter.show_encrypted_texts_from_list()
             text_id = get_text_id_from_user("Enter text id: ")
             is_not_valid_id = True
-            for index, encrypted_text in enumerate(self.encrypted_texts, start=1):
+            for index, encrypted_text in enumerate(self.encrypter.encrypted_texts, start=1):
                 if index == text_id:
-                    decrypted_text = self.decrypt_text(encrypted_text)
+                    decrypted_text = self.encrypter.encrypt_or_decrypt(encrypted_text)
                     print(f"{encrypted_text} - {decrypted_text} ")
                     is_not_valid_id = False
             if is_not_valid_id:
@@ -215,16 +216,16 @@ class Decrypter(Encrypter):
         Decrpyt text from the file using id given form user
 
         """
-        if not self.is_file_empty():
-            self.show_encrypted_texts_from_file()
+        if not self.encrypter.is_file_empty():
+            self.encrypter.show_encrypted_texts_from_file()
             text_id = get_text_id_from_user("Enter text id: ")
-            self.get_encrypted_texts_from_file()
+            self.encrypter.get_encrypted_texts_from_file()
             is_not_valid_id = True
             for index, encrypted_text in enumerate(
-                    self.encrypted_texts_form_file, start=1
+                    self.encrypter.encrypted_texts_form_file, start=1
             ):
                 if index == text_id:
-                    decrypted_text = self.encrypt_or_decrypt(encrypted_text)
+                    decrypted_text = self.encrypter.encrypt_or_decrypt(encrypted_text)
                     is_not_valid_id = False
                     print(f"{encrypted_text} - {decrypted_text} ")
             if is_not_valid_id:

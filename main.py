@@ -1,4 +1,4 @@
-"""PSL"""
+# PSL
 from inspect import cleandoc
 from typing import Dict, NoReturn
 
@@ -16,7 +16,6 @@ class MainMenu:
         class of encrpyter
     decrypter : class
     class of decrypter
-
     """
 
     def __init__(self) -> NoReturn:
@@ -24,7 +23,12 @@ class MainMenu:
         self.decrypter = Decrypter()
 
     def invoke_main_loop(self) -> NoReturn:
-        """Invokes main menu loop"""
+        """
+        Invokes main menu loop
+        :param x: this is a random number
+        :type x: int
+        :return: Nothing
+        """
         avalible_choices: Dict[str, str] = {
             "1": self.invoke_encrypter_menu_loop,
             "2": self.invoke_decrypter_menu_loop,
@@ -41,8 +45,8 @@ class MainMenu:
             else:
                 print("Wrong choice!")
 
-    @classmethod
-    def show_main_menu(cls) -> str:
+    @staticmethod
+    def show_main_menu() -> str:
         """Return main menu"""
         return cleandoc(
             """
