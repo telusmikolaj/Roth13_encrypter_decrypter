@@ -1,7 +1,3 @@
-b
-c
-e
-f
-g
-qfn
-qnf
+grfg
+testormn
+naan

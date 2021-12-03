@@ -6,6 +6,7 @@ from untils import get_text_from_user
 from untils import get_text_id_from_user
 
 
+
 class Encrypter:
     """
     A class to represent a encrypter that encrypts with rot13.
@@ -74,8 +75,8 @@ class Encrypter:
             print("Encrypted texts list: ")
             for index, line in enumerate(self.encrypted_texts, start=1):
                 print(f"{index}. {line}")
-
-        print("List is empty \n")
+        else:
+            print("List is empty \n")
 
     def save_to_file(self) -> NoReturn:
         """
@@ -110,8 +111,8 @@ class Encrypter:
             print("Encrypted Texts: ")
             for index, line in enumerate(self.encrypted_texts_form_file, start=1):
                 print(f"{index}. {line}")
-
-        print("List is empty \n")
+        else:
+            print("File is empty \n")
 
     def delete_text_from_file(self) -> NoReturn:
         """
@@ -157,7 +158,7 @@ class Encrypter:
         """
         self.encrypted_texts_form_file.clear()
         with open("encrypted_texts.txt", encoding="utf8") as file:
-            for line in enumerate(file):
+            for index, line in enumerate(file):
                 self.encrypted_texts_form_file.append(line.strip())
 
     def is_list_empty(self) -> bool:
@@ -180,8 +181,8 @@ class Decrypter:
     """
         A class to represent a decrypter that decrypts text encrypted with rot13.
     """
-    def __init__(self):
-        self.encrypter = Encrypter()
+    def __init__(self, encrypter):
+        self.encrypter = encrypter
 
     def decrypt_text_from_user(self) -> NoReturn:
         """
@@ -208,8 +209,8 @@ class Decrypter:
                     is_not_valid_id = False
             if is_not_valid_id:
                 print("Invalid id")
-
-        print("List is empty. Nothing to decrypt!")
+        else:
+            print("List is empty. Nothing to decrypt!")
 
     def decrypt_text_from_file(self) -> NoReturn:
         """
@@ -230,5 +231,5 @@ class Decrypter:
                     print(f"{encrypted_text} - {decrypted_text} ")
             if is_not_valid_id:
                 print("Invalid id")
-
-        print("File is empty. Nothing to decrypt")
+        else:
+            print("File is empty. Nothing to decrypt")

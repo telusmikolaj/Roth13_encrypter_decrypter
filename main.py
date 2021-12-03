@@ -20,7 +20,9 @@ class MainMenu:
 
     def __init__(self) -> NoReturn:
         self.encrypter = Encrypter()
-        self.decrypter = Decrypter()
+        self.decrypter = Decrypter(self.encrypter)
+
+
 
     def invoke_main_loop(self) -> NoReturn:
         """
