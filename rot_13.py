@@ -141,7 +141,7 @@ class Encrypter:
             is_not_valid_id = True
             self.show_encrypted_texts_from_list()
             text_id = get_text_id_from_user("Enter text id: ")
-            for index in enumerate(self.encrypted_texts, start=1):
+            for index, line in enumerate(self.encrypted_texts, start=1):
                 if index == int(text_id):
                     del self.encrypted_texts[int(text_id) - 1]
                     is_not_valid_id = False
