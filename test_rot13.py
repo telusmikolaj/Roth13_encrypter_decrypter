@@ -19,9 +19,19 @@ class TestROT13(unittest.TestCase):
         self.assertEqual("example", self.encrypter.encrypt_or_decrypt("rknzcyr"),
                          msg="Word 'example' should be encrypted to 'rknzcyr'.")
 
-    def test_if_word_test_will_be_saved_to_list(self):
-        self.encrypter.save_to_list()
-        self.assertTrue('grfg' in self.encrypter.encrypted_texts)
+    # def test_if_word_test_will_be_saved_to_list_by_save_to_list_fnc(self):
+    #     self.encrypter.save_to_list()
+    #     self.assertTrue('grfg' in self.encrypter.encrypted_texts)
+
+    def test_if_word_given_by_user_will_be_save_to_file_by_save_to_file_fnc(self):
+        self.encrypter.save_to_file()
+        with open("encrypted_texts.txt", encoding="utf8") as file:
+            self.assertTrue('test' in file.read())
+
+
+    def test_if_word_test_is_in_file_by_is_text_in_file_fnc(self):
+        word_test = 'test'
+        self.assertTrue(self.encrypter.is_text_in_file(word_test))
 
 
 
