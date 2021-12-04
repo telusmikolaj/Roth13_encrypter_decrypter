@@ -39,10 +39,15 @@ class TestROT13(unittest.TestCase):
     #         self.assertFalse('grfg' in file.read())
 
 
-    def test_if_word_selected_by_the_user_will_be_deleted_from_list_by_delete_from_list_fnc(self):
+    # def test_if_word_selected_by_the_user_will_be_deleted_from_list_by_delete_from_list_fnc(self):
+    #     self.encrypter.encrypted_texts.append('test')
+    #     self.encrypter.delete_text_from_list()
+    #     self.assertFalse('test' in self.encrypter.encrypted_texts)
+
+    def test_if_list_is_empty_by_is_list_empty_fnc(self):
         self.encrypter.encrypted_texts.append('test')
-        self.encrypter.delete_text_from_list()
-        self.assertFalse('test' in self.encrypter.encrypted_texts)
+        self.assertFalse(self.encrypter.is_list_empty())
+
 
 
 
