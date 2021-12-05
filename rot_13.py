@@ -62,7 +62,7 @@ class Encrypter:
 
         if not encrypted_text_to_save:
             text_to_encrypt_from_user = get_text_from_user('Enter text to save on list: ')
-            encrypted_text_to_save = self.encrypted_texts(text_to_encrypt_from_user)
+            encrypted_text_to_save = self.encrypt_or_decrypt(text_to_encrypt_from_user)
 
         if encrypted_text_to_save in self.encrypted_texts:
             print("This text is already on list \n")
@@ -84,17 +84,19 @@ class Encrypter:
         else:
             print("List is empty \n")
 
-    def save_to_file(self) -> NoReturn:
+    def save_enrypted_text_to_the_file(self, encrypted_text_to_save: str = '') -> NoReturn:
         """
         Save encrypted text to file
         """
-        text_to_encrypt = get_text_from_user("Enter text and save to file: ")
-        encrypted_text = self.encrypt_or_decrypt(text_to_encrypt)
-        if self.is_text_in_file(encrypted_text):
+        if not encrypted_text_to_save:
+            text_from_user = get_text_from_user("Enter text and save to file: ")
+            encrypted_text_to_save = self.encrypt_or_decrypt(text_from_user)
+
+        if self.is_text_in_file(encrypted_text_to_save):
             print("Text is already in file")
         else:
             with open("encrypted_texts.txt", "a", encoding="utf8") as file:
-                file.write(encrypted_text)
+                file.write(encrypted_text_to_save)
                 file.write("\n")
 
     @staticmethod

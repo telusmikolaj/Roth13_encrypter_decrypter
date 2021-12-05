@@ -29,12 +29,16 @@ class TestROT13(unittest.TestCase):
         self.assertTrue('example' in self.encrypter.encrypted_texts,
                         msg='Word "example" is not on the list')
 
+    def test_if_word_test_will_be_save_to_file_by_save_to_file_fnc(self):
+        self.encrypter.save_enrypted_text_to_the_file('test')
+        with open("encrypted_texts.txt", encoding="utf8") as file:
+            self.assertTrue('test' in file.read())
 
-    # def test_if_word_given_by_user_will_be_save_to_file_by_save_to_file_fnc(self):
-    #     self.encrypter.save_to_file()
-    #     with open("encrypted_texts.txt", encoding="utf8") as file:
-    #         self.assertTrue('beza' in file.read())
-    #
+        self.encrypter.save_enrypted_text_to_the_file('example')
+        with open("encrypted_texts.txt", encoding="utf8") as file:
+            self.assertTrue('example' in file.read())
+
+
     # def test_if_word_test_is_in_file_by_is_text_in_file_fnc(self):
     #     word_test = 'test'
     #     self.assertTrue(self.encrypter.is_text_in_file(word_test))

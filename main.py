@@ -64,8 +64,8 @@ class MainMenu:
         """Invokes encrypter menu loop"""
         avalible_encrypter_options: Dict[str, str] = {
             "1": self.encrypter.return_encrypted_text_without_saving,
-            "2": self.encrypter.encrypt_text_from_user_and_save_it_to_list,
-            "3": self.encrypter.save_to_file,
+            "2": self.encrypter.save_encrypted_text_to_the_list,
+            "3": self.encrypter.save_enrypted_text_to_the_file,
         }
         while 1:
             print(self.show_encrypter_menu())
