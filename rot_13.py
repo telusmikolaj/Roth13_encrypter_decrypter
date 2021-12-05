@@ -139,24 +139,26 @@ class Encrypter:
                 for index, line in enumerate(self.encrypted_texts_form_file, start=1):
                     if line != text_to_delete:
                         file.write(line)
-                        print('das')
                         file.write("\n")
 
         else:
             print("File is empty")
 
-    def delete_text_from_list(self) -> NoReturn:
+    def delete_text_from_list(self, text_to_delete: str = '') -> NoReturn:
         """
         Delete text from the list using the given id
 
         """
+
         if self.encrypted_texts:
             is_not_valid_id = True
             self.show_encrypted_texts_from_list()
-            text_id = get_text_id_from_user("Enter text id: ")
+            if not text_to_delete:
+                text_to_delete = get_text_from_user('Enter text to delete: ')
             for index, line in enumerate(self.encrypted_texts, start=1):
-                if index == int(text_id):
-                    del self.encrypted_texts[int(text_id) - 1]
+                if line == text_to_delete:
+                    print('Thwre')
+                    self.encrypted_texts.remove(text_to_delete)
                     is_not_valid_id = False
 
             if is_not_valid_id:

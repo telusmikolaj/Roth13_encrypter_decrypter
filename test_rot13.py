@@ -61,11 +61,17 @@ class TestROT13(unittest.TestCase):
         with open("encrypted_texts.txt", encoding="utf8") as file:
             self.assertTrue('test' not in file.read(),
                             msg='Word "example" has not been removed from the file ')
-    #
-    # def test_if_word_selected_by_the_user_will_be_deleted_from_list_by_delete_from_list_fnc(self):
-    #     self.encrypter.encrypted_texts.append('test')
-    #     self.encrypter.delete_text_from_list()
-    #     self.assertFalse('test' in self.encrypter.encrypted_texts)
+
+    def test_if_word_selected_by_the_user_will_be_deleted_from_list_by_delete_from_list_fnc(self):
+        self.encrypter.save_encrypted_text_to_the_list('snow')
+        self.encrypter.delete_text_from_list('snow')
+        self.assertTrue('snow' not in self.encrypter.encrypted_texts,
+                        msg='Word "snow" has not been removed from the list ')
+
+        self.encrypter.save_encrypted_text_to_the_list('snowman')
+        self.encrypter.delete_text_from_list('snowman')
+        self.assertTrue('snowman' not in self.encrypter.encrypted_texts,
+                        msg='Word "snowman" has not been removed from the file ')
     #
     # def test_if_list_is_empty_by_is_list_empty_fnc(self):
     #     self.encrypter.encrypted_texts.append('test')
