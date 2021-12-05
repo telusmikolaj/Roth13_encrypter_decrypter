@@ -88,7 +88,8 @@ class TestROT13(unittest.TestCase):
             self.assertTrue(self.encrypter.is_text_in_file('book'))
 
     def test_if_text_rknzcyr_will_be_decrypted_by_decrypt_text_fnc(self):
-        self.assertEqual("grfg", self.encrypter.encrypt_or_decrypt("test"),
+        self.assertEqual("grfg", self.decrypter.get_decrypted_text("test"),
                          msg="Word 'grfg' should be encrypted to 'test'.")
-        self.assertEqual("rknzcyr", self.encrypter.encrypt_or_decrypt("example"),
+        self.assertEqual("rknzcyr", self.decrypter.get_decrypted_text("example"),
                          msg="Word 'rknzcyr' should be encrypted to 'example'.")
+

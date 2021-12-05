@@ -200,14 +200,18 @@ class Decrypter:
     def __init__(self, encrypter):
         self.encrypter = encrypter
 
-    def decrypt_text(self) -> NoReturn:
+    def get_decrypted_text(self, text_to_decrypt: str = '') -> str:
         """
         Decrpyt text given from user
 
         """
-        text_to_decrypt = get_text_from_user("Enter text to decrypt: ")
+
+        if not text_to_decrypt:
+            text_to_decrypt = get_text_from_user("Enter text to decrypt: ")
+
         decrypted_text = self.encrypter.encrypt_or_decrypt(text_to_decrypt)
-        return print(f"Decrypted - {decrypted_text} ")
+        print(f"{text_to_decrypt}- {decrypted_text} ")
+        return decrypted_text
 
     def decrypt_text_from_list(self) -> NoReturn:
         """
