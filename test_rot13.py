@@ -72,7 +72,14 @@ class TestROT13(unittest.TestCase):
         self.encrypter.delete_text_from_list('snowman')
         self.assertTrue('snowman' not in self.encrypter.encrypted_texts,
                         msg='Word "snowman" has not been removed from the file ')
-    #
-    # def test_if_list_is_empty_by_is_list_empty_fnc(self):
-    #     self.encrypter.encrypted_texts.append('test')
-    #     self.assertFalse(self.encrypter.is_list_empty())
+
+    def test_if_list_is_empty_by_is_list_empty_fnc(self):
+        self.encrypter.save_encrypted_text_to_the_list('audi')
+        self.assertFalse(self.encrypter.is_list_empty(),
+                         msg='List is not empty')
+
+    def test_if_file_is_empty_by_is_file_empty_fnc(self):
+        self.encrypter.save_enrypted_text_to_the_file('mercedes')
+        self.assertFalse(self.encrypter.is_file_empty(),
+                         msg='File is not empty')
+
