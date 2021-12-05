@@ -122,19 +122,24 @@ class Encrypter:
         else:
             print("File is empty \n")
 
-    def delete_text_from_file(self) -> NoReturn:
+    def delete_text_from_file(self, text_to_delete: str = '') -> NoReturn:
         """
         Delete text from the file using the given id
 
         """
+
         self.get_encrypted_texts_from_file()
         self.show_encrypted_texts_from_file()
-        text_id = get_text_id_from_user("Enter text id: ")
+
+        if not text_to_delete:
+            text_to_delete = get_text_from_user('Enter text to delete: ')
+
         if self.encrypted_texts_form_file:
             with open("encrypted_texts.txt", "w", encoding="utf8") as file:
                 for index, line in enumerate(self.encrypted_texts_form_file, start=1):
-                    if index != int(text_id):
+                    if line != text_to_delete:
                         file.write(line)
+                        print('das')
                         file.write("\n")
 
         else:

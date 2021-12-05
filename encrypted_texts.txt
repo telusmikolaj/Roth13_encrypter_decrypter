@@ -1,5 +1,4 @@
-
-test
-example
-grfg
-ormn
+car
+bike
+cat
+dog
