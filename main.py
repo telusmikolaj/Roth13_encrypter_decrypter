@@ -93,7 +93,7 @@ class MainMenu:
         """Invokes decrypter menu loop"""
         avalible_decrypter_options: Dict[str, str] = {
             "1": self.decrypter.get_decrypted_text,
-            "2": self.decrypter.decrypt_text_from_list,
+            "2": self.decrypter.get_decrypted_text_from_list_by_id,
             "3": self.decrypter.decrypt_text_from_file,
         }
         while 1:

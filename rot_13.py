@@ -213,24 +213,27 @@ class Decrypter:
         print(f"{text_to_decrypt}- {decrypted_text} ")
         return decrypted_text
 
-    def decrypt_text_from_list(self) -> NoReturn:
+    def get_decrypted_text_from_list_by_id(self, text_id: int = -1) -> str:
         """
         Decrpyt text from the list using id given form user
 
         """
         if not self.encrypter.is_list_empty():
             self.encrypter.show_encrypted_texts_from_list()
-            text_id = get_text_id_from_user("Enter text id: ")
-            is_not_valid_id = True
+            if text_id == -1:
+                text_id = get_text_id_from_user("Enter text id: ")
+
             for index, encrypted_text in enumerate(self.encrypter.encrypted_texts, start=1):
                 if index == text_id:
                     decrypted_text = self.encrypter.encrypt_or_decrypt(encrypted_text)
                     print(f"{encrypted_text} - {decrypted_text} ")
-                    is_not_valid_id = False
-            if is_not_valid_id:
-                print("Invalid id")
+
+                    return decrypted_text
+
+            return 'Invalid id'
         else:
             print("List is empty. Nothing to decrypt!")
+            return 'List is empty. Nothing to decrypt!'
 
     def decrypt_text_from_file(self) -> NoReturn:
         """
