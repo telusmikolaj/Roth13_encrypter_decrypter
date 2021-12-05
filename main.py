@@ -63,8 +63,8 @@ class MainMenu:
     def invoke_encrypter_menu_loop(self) -> NoReturn:
         """Invokes encrypter menu loop"""
         avalible_encrypter_options: Dict[str, str] = {
-            "1": self.encrypter.encrypt_without_saving,
-            "2": self.encrypter.save_to_list,
+            "1": self.encrypter.return_encrypted_text_without_saving,
+            "2": self.encrypter.encrypt_text_from_user_and_save_it_to_list,
             "3": self.encrypter.save_to_file,
         }
         while 1:

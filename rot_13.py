@@ -6,7 +6,6 @@ from untils import get_text_from_user
 from untils import get_text_id_from_user
 
 
-
 class Encrypter:
     """
     A class to represent a encrypter that encrypts with rot13.
@@ -47,25 +46,32 @@ class Encrypter:
 
         return encrypted_or_decrypted_text
 
-    def encrypt_without_saving(self) -> NoReturn:
+    def return_encrypted_text_without_saving(self) -> str:
         """
-        Only print encrypted text
+        Return and print encrypted text
         """
         text_to_encrypt = get_text_from_user("Enter text to encrypt")
         encrypted_text = self.encrypt_or_decrypt(text_to_encrypt)
         print(f"Encrypted text - {encrypted_text}")
+        return encrypted_text
 
-    def save_to_list(self) -> NoReturn:
+    def save_encrypted_text_to_the_list(self, encrypted_text_to_save: str = '') -> bool:
         """
         Save enrypted text to list
         """
-        text_to_encrypt = get_text_from_user("Enter text and save to list: ")
-        encrypted_text = self.encrypt_or_decrypt(text_to_encrypt)
-        if encrypted_text in self.encrypted_texts:
+
+        if not encrypted_text_to_save:
+            text_to_encrypt_from_user = get_text_from_user('Enter text to save on list: ')
+            encrypted_text_to_save = self.encrypted_texts(text_to_encrypt_from_user)
+
+        if encrypted_text_to_save in self.encrypted_texts:
             print("This text is already on list \n")
+            return False
         else:
-            self.encrypted_texts.append(encrypted_text)
+            self.encrypted_texts.append(encrypted_text_to_save)
         self.show_encrypted_texts_from_list()
+        print('Saved!')
+        return True
 
     def show_encrypted_texts_from_list(self) -> NoReturn:
         """
@@ -181,6 +187,7 @@ class Decrypter:
     """
         A class to represent a decrypter that decrypts text encrypted with rot13.
     """
+
     def __init__(self, encrypter):
         self.encrypter = encrypter
 
