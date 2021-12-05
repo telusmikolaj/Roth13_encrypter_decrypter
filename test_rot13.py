@@ -83,3 +83,12 @@ class TestROT13(unittest.TestCase):
         self.assertFalse(self.encrypter.is_file_empty(),
                          msg='File is not empty')
 
+    def test_if_text_is_in_the_file_by_is_text_in_the_file_fnc(self):
+            self.encrypter.save_enrypted_text_to_the_file('book')
+            self.assertTrue(self.encrypter.is_text_in_file('book'))
+
+    def test_if_text_rknzcyr_will_be_decrypted_by_decrypt_text_fnc(self):
+        self.assertEqual("grfg", self.encrypter.encrypt_or_decrypt("test"),
+                         msg="Word 'grfg' should be encrypted to 'test'.")
+        self.assertEqual("rknzcyr", self.encrypter.encrypt_or_decrypt("example"),
+                         msg="Word 'rknzcyr' should be encrypted to 'example'.")

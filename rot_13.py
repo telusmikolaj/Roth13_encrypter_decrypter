@@ -200,7 +200,7 @@ class Decrypter:
     def __init__(self, encrypter):
         self.encrypter = encrypter
 
-    def decrypt_text_from_user(self) -> NoReturn:
+    def decrypt_text(self) -> NoReturn:
         """
         Decrpyt text given from user
 

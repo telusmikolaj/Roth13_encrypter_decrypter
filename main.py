@@ -92,7 +92,7 @@ class MainMenu:
     def invoke_decrypter_menu_loop(self) -> NoReturn:
         """Invokes decrypter menu loop"""
         avalible_decrypter_options: Dict[str, str] = {
-            "1": self.decrypter.decrypt_text_from_user,
+            "1": self.decrypter.decrypt_text,
             "2": self.decrypter.decrypt_text_from_list,
             "3": self.decrypter.decrypt_text_from_file,
         }
