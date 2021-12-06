@@ -59,19 +59,20 @@ class Encrypter:
         """
         Save enrypted text to list
         """
-
+        result = True
         if not encrypted_text_to_save:
             text_to_encrypt_from_user = get_text_from_user('Enter text to save on list: ')
             encrypted_text_to_save = self.encrypt_or_decrypt(text_to_encrypt_from_user)
 
         if encrypted_text_to_save in self.encrypted_texts:
             print("This text is already on list \n")
-            return False
+            result = False
         else:
             self.encrypted_texts.append(encrypted_text_to_save)
+            print('Saved!')
         self.show_encrypted_texts_from_list()
-        print('Saved!')
-        return True
+
+        return result
 
     def show_encrypted_texts_from_list(self) -> NoReturn:
         """
