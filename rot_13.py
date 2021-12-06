@@ -213,7 +213,7 @@ class Decrypter:
         print(f"{text_to_decrypt}- {decrypted_text} ")
         return decrypted_text
 
-    def get_decrypted_text_from_list_by_id(self, text_id: int = -1) -> str:
+    def get_decrypted_text_from_list_by_id(self, text_id: int = -1, decrypted_text: str = '') -> str:
         """
         Decrpyt text from the list using id given form user
 
@@ -222,18 +222,20 @@ class Decrypter:
             self.encrypter.show_encrypted_texts_from_list()
             if text_id == -1:
                 text_id = get_text_id_from_user("Enter text id: ")
+            is_not_valid_id = True
 
             for index, encrypted_text in enumerate(self.encrypter.encrypted_texts, start=1):
                 if index == text_id:
+                    is_not_valid_id = False
                     decrypted_text = self.encrypter.encrypt_or_decrypt(encrypted_text)
                     print(f"{encrypted_text} - {decrypted_text} ")
 
-                    return decrypted_text
-
-            return 'Invalid id'
+            if is_not_valid_id:
+                print("Invalid id")
         else:
             print("List is empty. Nothing to decrypt!")
-            return 'List is empty. Nothing to decrypt!'
+
+        return decrypted_text
 
     def decrypt_text_from_file(self) -> NoReturn:
         """

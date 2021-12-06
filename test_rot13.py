@@ -93,16 +93,16 @@ class TestROT13(unittest.TestCase):
         self.assertEqual("rknzcyr", self.decrypter.get_decrypted_text("example"),
                          msg="Word 'rknzcyr' should be encrypted to 'example'.")
 
-    def test_if_text_with_index_0_from_list_will_be_decrypted_by_derypt_text_from_list_fnc(self):
+    def test_if_text_with_index_1_from_list_will_be_decrypted_by_derypt_text_from_list_fnc(self):
         encrpyted_text = self.encrypter.encrypt_or_decrypt('test')
         self.encrypter.save_encrypted_text_to_the_list(encrpyted_text)
 
-        self.assertEqual("test", self.decrypter.get_decrypted_text_from_list_by_id(0),
+        self.assertEqual("test", self.decrypter.get_decrypted_text_from_list_by_id(1),
                          msg="Decrypted word should be 'test' ")
 
         encrpyted_text = self.encrypter.encrypt_or_decrypt('example')
         self.encrypter.save_encrypted_text_to_the_list(encrpyted_text)
-        self.assertEqual("example", self.decrypter.get_decrypted_text_from_list_by_id(1),
+        self.assertEqual("example", self.decrypter.get_decrypted_text_from_list_by_id(2),
                          msg="Decrypted word should be 'example' ")
 
 
