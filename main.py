@@ -94,7 +94,7 @@ class MainMenu:
         avalible_decrypter_options: Dict[str, str] = {
             "1": self.decrypter.get_decrypted_text,
             "2": self.decrypter.get_decrypted_text_from_list_by_id,
-            "3": self.decrypter.decrypt_text_from_file,
+            "3": self.decrypter.get_decrypted_text_from_file_by_id,
         }
         while 1:
             print(self.show_decrypt_menu())

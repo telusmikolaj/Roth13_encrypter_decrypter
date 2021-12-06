@@ -94,16 +94,24 @@ class TestROT13(unittest.TestCase):
                          msg="Word 'rknzcyr' should be encrypted to 'example'.")
 
     def test_if_text_with_index_1_from_list_will_be_decrypted_by_derypt_text_from_list_fnc(self):
-        encrpyted_text = self.encrypter.encrypt_or_decrypt('test')
-        self.encrypter.save_encrypted_text_to_the_list(encrpyted_text)
+        encrpyted_text_with_index_1 = self.encrypter.encrypt_or_decrypt('test')
+        self.encrypter.save_encrypted_text_to_the_list(encrpyted_text_with_index_1)
 
         self.assertEqual("test", self.decrypter.get_decrypted_text_from_list_by_id(1),
                          msg="Decrypted word should be 'test' ")
 
-        encrpyted_text = self.encrypter.encrypt_or_decrypt('example')
-        self.encrypter.save_encrypted_text_to_the_list(encrpyted_text)
+        encrpyted_text_with_index_2 = self.encrypter.encrypt_or_decrypt('example')
+        self.encrypter.save_encrypted_text_to_the_list(encrpyted_text_with_index_2)
         self.assertEqual("example", self.decrypter.get_decrypted_text_from_list_by_id(2),
                          msg="Decrypted word should be 'example' ")
+
+    def test_if_text_with_index_1_from_file_will_be_decrypted_by_derypted_text_from_file_by_id_fnc(self):
+
+        with open("encrypted_texts.txt", encoding="utf8") as file:
+            encrpyted_text_with_index_0 = file.readlines()[0]
+            decrypted_text_with_index_0 = self.decrypter.get_decrypted_text(encrpyted_text_with_index_0)
+            self.assertEqual(decrypted_text_with_index_0, self.decrypter.get_decrypted_text_from_file_by_id(1),
+                                msg="Decrypted word should be 'test' ")
 
 
 
